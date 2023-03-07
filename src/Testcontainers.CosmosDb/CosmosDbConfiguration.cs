@@ -11,9 +11,9 @@ public sealed class CosmosDbConfiguration : ContainerConfiguration
     /// <param name="database">The database name used in CosmosDB</param>
     /// <param name="partitionCount">The number of partition used in CosmosDB</param>
     public CosmosDbConfiguration(
-        int port = 8081,
+        string port = null,
         string database = null,
-        int partitionCount = 2)
+        string partitionCount = null)
     {
         Port = port;
         Database = database;
@@ -66,7 +66,7 @@ public sealed class CosmosDbConfiguration : ContainerConfiguration
     /// <summary>
     /// Get the CosmosDB port
     /// </summary>
-    public int Port { get;  }
+    public string Port { get;  }
     
     /// <summary>
     /// Get the name of the database 
@@ -76,6 +76,11 @@ public sealed class CosmosDbConfiguration : ContainerConfiguration
     /// <summary>
     /// Get the number of partition used in CosmosDB
     /// </summary>
-    public int PartitionCount { get;  }
-
+    public string PartitionCount { get;  }
+    
+    /// <summary>
+    /// Get the password used in CosmosDB
+    /// </summary>
+    public string Password { get; } =
+        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 }

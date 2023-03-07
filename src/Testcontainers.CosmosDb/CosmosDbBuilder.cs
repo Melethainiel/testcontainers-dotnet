@@ -4,10 +4,10 @@ namespace Testcontainers.CosmosDb;
 [PublicAPI]
 public sealed class CosmosDbBuilder : ContainerBuilder<CosmosDbBuilder, CosmosDbContainer, CosmosDbConfiguration>
 {
-    public const string CosmosDbImage = "Cosmos:6.0";
-
+    public const string CosmosDbImage = "mcr.microsoft.com/azure-storage/azurite";
     public const string DefaultDatabaseName = "default";
     public const int DefaultDbPort = 8081;
+    public const int DefaultPartitionCount = 2;
 
 
     /// <summary>
@@ -43,13 +43,25 @@ public sealed class CosmosDbBuilder : ContainerBuilder<CosmosDbBuilder, CosmosDb
     }
     
     /// <summary>
+    /// Sets the CosmosDb partition count.
+    /// </summary>
+    /// <param name="partitionCount">The CosmosDb partition count.</param>
+    /// <returns>A configured instance of <see cref="CosmosDbBuilder" />.</returns>
+    public CosmosDbBuilder WithPartitionCount(int partitionCount)
+    {
+        return Merge(DockerResourceConfiguration, new CosmosDbConfiguration(partitionCount: partitionCount.ToString()))
+            .WithEnvironment("AZURE_COSMOS_EMULATOR_PARTITION_COUNT", partitionCount.ToString());
+    }
+    
+    /// <summary>
     /// Sets the CosmosDb port.
     /// </summary>
     /// <param name="port">The CosmosDb port.</param>
     /// <returns>A configured instance of <see cref="CosmosDbBuilder" />.</returns>
-    public CosmosDbBuilder WithPort(int port)
+    //TODO Ask how to set random port with the library or use Random.Next()
+    public CosmosDbBuilder WithPortBinding(int port)
     {
-        return Merge(DockerResourceConfiguration, new CosmosDbConfiguration(port: port))
+        return Merge(DockerResourceConfiguration, new CosmosDbConfiguration(port: port.ToString()))
             .WithPortBinding(port, port)
             .WithEnvironment("AZURE_COSMOS_EMULATOR_ARGS", $"/Port={port}");
     }
@@ -66,8 +78,9 @@ public sealed class CosmosDbBuilder : ContainerBuilder<CosmosDbBuilder, CosmosDb
     {
         return base.Init()
             .WithImage(CosmosDbImage)
-            .WithPort(DefaultDbPort)
+            .WithPortBinding(DefaultDbPort)
             .WithDatabase(DefaultDatabaseName)
+            .WithPartitionCount(DefaultPartitionCount)
             .WithWaitStrategy(
                 Wait.ForUnixContainer()
                     .AddCustomWaitStrategy(new WaitUntil()));
@@ -79,6 +92,14 @@ public sealed class CosmosDbBuilder : ContainerBuilder<CosmosDbBuilder, CosmosDb
         base.Validate();
 
         _ = Guard.Argument(DockerResourceConfiguration.Database, nameof(DockerResourceConfiguration.Database))
+            .NotNull()
+            .NotEmpty();
+        
+        _ = Guard.Argument(DockerResourceConfiguration.PartitionCount, nameof(DockerResourceConfiguration.PartitionCount))
+            .NotNull()
+            .NotEmpty();        
+        
+        _ = Guard.Argument(DockerResourceConfiguration.Port, nameof(DockerResourceConfiguration.Port))
             .NotNull()
             .NotEmpty();
     }
@@ -108,7 +129,7 @@ public sealed class CosmosDbBuilder : ContainerBuilder<CosmosDbBuilder, CosmosDb
     {
         private static readonly IEnumerable<string> Pattern = new[]
         {
-            "Started"
+            "Started",
         };
 
         /// <inheritdoc />

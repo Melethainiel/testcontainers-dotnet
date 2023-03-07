@@ -11,8 +11,9 @@ public sealed class CosmosDbContainer : DockerContainer
     /// </summary>
     /// <param name="configuration">The container configuration.</param>
     /// <param name="logger">The logger.</param>
-    public CosmosDbContainer(CosmosDbConfiguration configuration, ILogger logger)
-        : base(configuration, logger)
+    public CosmosDbContainer(
+        CosmosDbConfiguration configuration,
+        ILogger logger) : base(configuration, logger)
     {
         _configuration = configuration;
     }
@@ -23,6 +24,6 @@ public sealed class CosmosDbContainer : DockerContainer
     /// <returns>The CosmosDb connection string.</returns>
     public string GetConnectionString()
     {
-        throw new NotImplementedException();
+        return $"AccountEndpoint=https://{Hostname}:{_configuration.Port};AccountKey={_configuration.Password}";
     }
 }
