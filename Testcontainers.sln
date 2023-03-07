@@ -105,6 +105,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testcontainers.SqlEdge.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testcontainers.Tests", "tests\Testcontainers.Tests\Testcontainers.Tests.csproj", "{27CDB869-A150-4593-958F-6F26E5391E7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testcontainers.CosmosDb", "src\Testcontainers.CosmosDb\Testcontainers.CosmosDb.csproj", "{9B0E1459-8240-4D50-9356-8872D7DE70E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -298,6 +300,10 @@ Global
 		{27CDB869-A150-4593-958F-6F26E5391E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27CDB869-A150-4593-958F-6F26E5391E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27CDB869-A150-4593-958F-6F26E5391E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B0E1459-8240-4D50-9356-8872D7DE70E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B0E1459-8240-4D50-9356-8872D7DE70E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B0E1459-8240-4D50-9356-8872D7DE70E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B0E1459-8240-4D50-9356-8872D7DE70E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{58E94721-2681-4D82-8D94-0B2F9DB0D575} = {673F23AE-7694-4BB9-ABD4-136D6C13634E}
@@ -346,5 +352,6 @@ Global
 		{9E8E6AA5-65D1-498F-BEAB-BA34723A0050} = {7164F1FB-7F24-444A-ACD2-2C329C2B3CCF}
 		{1A1983E6-5297-435F-B467-E8E1F11277D6} = {7164F1FB-7F24-444A-ACD2-2C329C2B3CCF}
 		{27CDB869-A150-4593-958F-6F26E5391E7C} = {7164F1FB-7F24-444A-ACD2-2C329C2B3CCF}
+		{9B0E1459-8240-4D50-9356-8872D7DE70E0} = {673F23AE-7694-4BB9-ABD4-136D6C13634E}
 	EndGlobalSection
 EndGlobal
